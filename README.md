@@ -1,100 +1,101 @@
-✋ Gesture Control System
+# ✋ Gesture Control System
 
-Real-time Hand Gesture Detection using MediaPipe, FastAPI & React
+**Real-time Hand Gesture Detection using MediaPipe, FastAPI & React**
 
-A full-stack real-time hand gesture detection system that uses a webcam to detect and classify hand gestures and streams results live to a web dashboard using WebSockets.
+A full-stack, real-time hand gesture detection system that uses a webcam to detect and classify hand gestures and streams results live to a web dashboard using WebSockets.
 
-🚀 Features
+---
 
-🎥 Live camera feed in browser
+## 🚀 Features
 
-✋ Real-time hand detection using MediaPipe
+- 📷 **Live camera feed in browser**
+- ✋ **Real-time hand detection using MediaPipe**
+- ⚡ **Low-latency WebSocket communication**
+- 🧠 **FastAPI backend for gesture processing**
+- 🎨 **Modern React + Vite frontend**
+- 🧩 **Clean, modular & extensible architecture**
+- ❤️ **Health-check API for backend monitoring**
 
-🔄 WebSocket-based communication (low latency)
+---
 
-⚡ FastAPI backend for gesture processing
+## 🧠 Tech Stack
 
-⚛️ React + Vite frontend
+### Frontend
+- React (Vite)
+- JavaScript (ES6+)
+- HTML5 Video & Canvas
+- WebSocket API
 
-🧩 Modular, clean, and extensible architecture
+### Backend
+- FastAPI
+- WebSockets
+- MediaPipe
+- OpenCV
+- Python 3.11
 
-🧪 Health check API for backend monitoring
+---
 
-🏗️ Tech Stack
-Frontend
+## 🏗️ System Architecture
+Webcam
+↓
+Browser (React)
+↓ WebSocket
+FastAPI Backend
+↓
+MediaPipe + OpenCV
+↓
+Gesture Classification
+↓
+Live Dashboard Update
 
-React (Vite)
 
-JavaScript (ES6+)
 
-WebSocket API
+---
 
-HTML5 Video + Canvas
+## 📂 Project Structure
 
-Backend
-
-FastAPI
-
-WebSockets
-
-MediaPipe
-
-OpenCV
-
-Python 3.11
-
-📁 Project Structure
 gesture-control-system/
 │
 ├── backend/
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── health.py        # Health check endpoint
-│   │   ├── core/
-│   │   │   ├── config.py        # App configuration
-│   │   │   └── logger.py        # Logging setup
-│   │   ├── gesture/
-│   │   │   ├── detector.py      # Hand detection logic
-│   │   │   ├── controller.py    # Gesture decision layer
-│   │   │   └── utils.py         # Helper functions
-│   │   ├── websocket.py         # WebSocket handler
-│   │   └── main.py              # FastAPI entry point
-│   │
-│   ├── requirements.txt
-│   └── run.sh
+│ ├── app/
+│ │ ├── api/
+│ │ │ └── health.py # Health check endpoint
+│ │ ├── core/
+│ │ │ ├── config.py # App configuration
+│ │ │ └── logger.py # Logging setup
+│ │ ├── gesture/
+│ │ │ ├── detector.py # Hand detection logic
+│ │ │ ├── controller.py # Gesture decision layer
+│ │ │ └── utils.py # Helper functions
+│ │ ├── websocket.py # WebSocket handler
+│ │ └── main.py # FastAPI entry point
+│ │
+│ ├── requirements.txt
+│ └── run.sh
 │
 ├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Camera.jsx
-│   │   │   ├── Control.jsx
-│   │   │   └── Dashboard.jsx
-│   │   ├── pages/
-│   │   │   └── Home.jsx
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── index.html
-│   └── vite.config.js
+│ ├── src/
+│ │ ├── components/
+│ │ │ ├── Camera.jsx
+│ │ │ ├── Control.jsx
+│ │ │ └── Dashboard.jsx
+│ │ ├── pages/
+│ │ │ └── Home.jsx
+│ │ ├── App.jsx
+│ │ └── main.jsx
+│ ├── index.html
+│ └── vite.config.js
 │
 ├── .gitignore
 └── README.md
 
-🔄 System Architecture
-Webcam
-  ↓
-Browser (React)
-  ↓  WebSocket
-FastAPI Backend
-  ↓
-MediaPipe + OpenCV
-  ↓
-Gesture Result
-  ↓
-Web Dashboard (Live Update)
 
+---
 
-⚙️ Setup Instructions
-1️⃣ Clone the Repository
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the Repository
+```bash
 git clone https://github.com/aparajitaks/gesture-control-system.git
 cd gesture-control-system
 
@@ -107,14 +108,20 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 
 
+Backend runs at:
+👉 http://localhost:8000
+
 3️⃣ Frontend Setup
 cd frontend
 npm install
 npm run dev
 
-Frontend will run at:http://localhost:5173
 
-💡 Learning Outcomes
+Frontend runs at:
+👉 http://localhost:5173
+
+
+🎯 Learning Outcomes
 
 Real-time WebSocket communication
 
@@ -125,3 +132,5 @@ Full-stack architecture with React + FastAPI
 Clean backend modularization
 
 Debugging WebSocket lifecycle issues
+
+Practical real-time computer vision integration
