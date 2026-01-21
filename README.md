@@ -49,49 +49,6 @@ Gesture Classification
 Live Dashboard Update
 
 
-
----
-
-## 📂 Project Structure
-
-gesture-control-system/
-│
-├── backend/
-│ ├── app/
-│ │ ├── api/
-│ │ │ └── health.py # Health check endpoint
-│ │ ├── core/
-│ │ │ ├── config.py # App configuration
-│ │ │ └── logger.py # Logging setup
-│ │ ├── gesture/
-│ │ │ ├── detector.py # Hand detection logic
-│ │ │ ├── controller.py # Gesture decision layer
-│ │ │ └── utils.py # Helper functions
-│ │ ├── websocket.py # WebSocket handler
-│ │ └── main.py # FastAPI entry point
-│ │
-│ ├── requirements.txt
-│ └── run.sh
-│
-├── frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ │ ├── Camera.jsx
-│ │ │ ├── Control.jsx
-│ │ │ └── Dashboard.jsx
-│ │ ├── pages/
-│ │ │ └── Home.jsx
-│ │ ├── App.jsx
-│ │ └── main.jsx
-│ ├── index.html
-│ └── vite.config.js
-│
-├── .gitignore
-└── README.md
-
-
----
-
 ## ⚙️ Setup Instructions
 
 ### 1️⃣ Clone the Repository
