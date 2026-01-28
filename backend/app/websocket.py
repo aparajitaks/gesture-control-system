@@ -4,7 +4,6 @@ import asyncio
 from app.gesture.detector import GestureDetector
 from starlette.websockets import WebSocketDisconnect
 
-
 router = APIRouter()
 detector = GestureDetector()
 
@@ -21,20 +20,19 @@ async def gesture_socket(websocket: WebSocket):
                 continue
 
             gesture = detector.detect_gesture(frame)
-            try:
-                await websocket.send_text(gesture)
-            except WebSocketDisconnect:
-                print("WebSocket disconnected safely")
-                break
+            await websocket.send_text(gesture)
 
             await asyncio.sleep(0.05)
 
+    except WebSocketDisconnect:
+        # Client disconnected normally (browser refresh, tab close, ngrok reconnect)
+        print("Client disconnected")
+
     except Exception as e:
-        print(f"An error occurred: {e}")
+        # Any unexpected error
+        print(f"Unexpected error: {e}")
 
     finally:
+        # Always release camera
         cap.release()
-        try:
-            await websocket.close()
-        except WebSocketDisconnect:
-            pass
+        print("WebSocket cleanup complete")
