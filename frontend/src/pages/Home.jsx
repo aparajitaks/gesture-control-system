@@ -6,7 +6,8 @@ export default function Home() {
   const [gesture, setGesture] = useState("WAITING");
 
   useEffect(() => {
-    const ws = new WebSocket("ws://127.0.0.1:8000/ws/gesture");
+    const ws = new WebSocket(import.meta.env.VITE_WS_URL);
+
 
     ws.onmessage = (event) => {
       setGesture(event.data);
