@@ -91,3 +91,6 @@ Clean backend modularization
 Debugging WebSocket lifecycle issues
 
 Practical real-time computer vision integration
+
+## 🎥 Demo Video
+🔗 **YouTube Link:** [Click here to watch the demo](https://www.youtube.com/watch?v=6uV31eVAnpI)
