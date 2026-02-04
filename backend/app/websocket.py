@@ -1,38 +1,58 @@
 from fastapi import APIRouter, WebSocket
+from starlette.websockets import WebSocketDisconnect
 import cv2
 import asyncio
+
 from app.gesture.detector import GestureDetector
-from starlette.websockets import WebSocketDisconnect
 
 router = APIRouter()
 detector = GestureDetector()
 
+
 @router.websocket("/ws/gesture")
 async def gesture_socket(websocket: WebSocket):
     await websocket.accept()
+    print("WebSocket connected")
+
     cap = cv2.VideoCapture(0)
 
     try:
         while True:
-            ret, frame = cap.read()
-            if not ret:
-                await asyncio.sleep(0.1)
+            # If camera is not available, keep socket alive and retry
+            if not cap.isOpened():
+                try:
+                    await websocket.send_text("NO_CAMERA")
+                except WebSocketDisconnect:
+                    break
+
+                await asyncio.sleep(1)
+                cap.open(0)
                 continue
 
-            gesture = detector.detect_gesture(frame)
-            await websocket.send_text(gesture)
+            ret, frame = cap.read()
+            if not ret:
+                await asyncio.sleep(0.05)
+                continue
+
+            try:
+                gesture = detector.detect_gesture(frame)
+            except Exception as e:
+                print("Detector error:", e)
+                gesture = "WAITING"
+
+            if not gesture:
+                gesture = "WAITING"
+
+            try:
+                await websocket.send_text(gesture)
+            except WebSocketDisconnect:
+                break
 
             await asyncio.sleep(0.05)
 
-    except WebSocketDisconnect:
-        # Client disconnected normally (browser refresh, tab close, ngrok reconnect)
-        print("Client disconnected")
-
     except Exception as e:
-        # Any unexpected error
-        print(f"Unexpected error: {e}")
+        print("Unexpected error:", e)
 
     finally:
-        # Always release camera
         cap.release()
-        print("WebSocket cleanup complete")
+        print("Camera released, WebSocket closed")

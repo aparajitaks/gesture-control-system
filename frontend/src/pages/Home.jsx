@@ -1,23 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Camera from "../components/Camera";
 import "../styles/Home.css";
 
 export default function Home() {
   const [gesture, setGesture] = useState("WAITING");
+  const wsRef = useRef(null);
 
   useEffect(() => {
-    const ws = new WebSocket(import.meta.env.VITE_WS_URL);
+    if (wsRef.current) return;
 
+    wsRef.current = new WebSocket(import.meta.env.VITE_WS_URL);
 
-    ws.onmessage = (event) => {
+    wsRef.current.onopen = () => {
+      console.log("✅ WebSocket connected");
+    };
+
+    wsRef.current.onmessage = (event) => {
       setGesture(event.data);
     };
 
-    ws.onerror = (err) => {
-      console.error("WebSocket error", err);
+    wsRef.current.onerror = (err) => {
+      console.error("❌ WebSocket error", err);
     };
 
-    return () => ws.close();
+    wsRef.current.onclose = () => {
+      console.log("🧹 WebSocket closed");
+      wsRef.current = null;
+    };
+
+    return () => {
+      wsRef.current?.close();
+    };
   }, []);
 
   const gestureDescriptions = {
@@ -35,6 +48,7 @@ export default function Home() {
             Real-time Computer Vision • Hand Gesture Recognition
           </p>
         </div>
+
         <div className="status-badges">
           <span className="badge online">System Online</span>
           <span className="badge camera">Camera Active</span>
@@ -51,7 +65,10 @@ export default function Home() {
           <div className="live-indicator">
             <span className="dot"></span> LIVE
           </div>
+
+          {/* Camera stays mounted */}
           <Camera />
+
           <div className="ai-processing">AI Processing...</div>
           <div className="live-feed-label">Live Camera Feed</div>
         </div>
